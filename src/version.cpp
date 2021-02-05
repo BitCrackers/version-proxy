@@ -6,22 +6,22 @@ HMODULE version_dll;
 #define WRAPPER_FUNC(name) o##name = GetProcAddress(version_dll, ###name)
 
 #ifdef _X86
-#define WRAPPER_GENFUNC(name)			\
-	FARPROC o##name;					\
-	__declspec(naked) void _##name()	\
-	{									\
-		__asm jmp[o##name]				\
+#define WRAPPER_GENFUNC(name) \
+	FARPROC o##name; \
+	__declspec(naked) void _##name() \
+	{ \
+		__asm jmp[o##name] \
 	}
 #elif _X64
 #pragma warning (disable: 4081)
 #define STRINGIFY(name) #name
 #define EXPORT_FUNCTION comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-#define WRAPPER_GENFUNC(name)					\
-    FARPROC o##name;							\
-    __declspec(dllexport) void WINAPI _##name()		\
-    {											\
-        __pragma(STRINGIFY(EXPORT_FUNCTION));	\
-        o##name();								\
+#define WRAPPER_GENFUNC(name) \
+    FARPROC o##name; \
+    __declspec(dllexport) void WINAPI _##name() \
+    { \
+        __pragma(STRINGIFY(EXPORT_FUNCTION)); \
+        o##name(); \
     }
 #endif
 
