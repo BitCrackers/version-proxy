@@ -5,14 +5,14 @@ HMODULE version_dll;
 
 #define WRAPPER_FUNC(name) o##name = GetProcAddress(version_dll, ###name)
 
-#ifdef _X86
+#ifdef WIN32
 #define WRAPPER_GENFUNC(name) \
 	FARPROC o##name; \
 	__declspec(naked) void _##name() \
 	{ \
 		__asm jmp[o##name] \
 	}
-#elif _X64
+#else
 #pragma warning (disable: 4081)
 #define STRINGIFY(name) #name
 #define EXPORT_FUNCTION comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -79,7 +79,7 @@ DWORD WINAPI Load(LPVOID lpParam) {
 	MessageBox(NULL, L"It's working!", L"version proxy", MB_OK | MB_ICONINFORMATION | MB_SYSTEMMODAL);
 #endif
 
-	// your code injection goes here
+	// your payload goes here
 
 	return 0;
 }
