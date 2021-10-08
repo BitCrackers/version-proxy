@@ -25,7 +25,7 @@ HMODULE version_dll;
 	}
 #endif
 
-WRAPPER_GENFUNC(GetFileVersionInfoA)
+WRAPPER_GENFUNC(GetFileVersionInfoA);
 WRAPPER_GENFUNC(GetFileVersionInfoByHandle);
 WRAPPER_GENFUNC(GetFileVersionInfoExW);
 WRAPPER_GENFUNC(GetFileVersionInfoExA);
